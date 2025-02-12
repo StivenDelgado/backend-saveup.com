@@ -12,8 +12,8 @@ class UserService {
   }
 
   async login(info) {
-    let infoRegister = await this.userRepository.login({email: info.email, password: info.password});
-    return infoRegister;
+    let infoLogin = await this.userRepository.login({email: info.email, password: info.password});
+    return infoLogin;
   }
 
 }

@@ -17,6 +17,12 @@ class UserController {
             data: await this.userService.login(req.body) 
         });
     }
+
+    profile = async (req, res) => {
+        return res.status(200).json({ 
+            data: `Tu email leído en tu token es: ${req.dataToken.userEmail}`
+        });
+    }
 }
 
 
