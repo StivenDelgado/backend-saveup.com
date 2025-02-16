@@ -1,10 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-
 import user from './src/routes/user.js';
-
-
 import dotenv from 'dotenv';
 dotenv.config();
 
