@@ -7,7 +7,7 @@ class UserService {
   }
 
   async register(info) {
-    let infoRegister = await this.userRepository.register({email: info.email, password: info.password});
+    let infoRegister = await this.userRepository.register({name: info.name, lastname: info.lastname, email: info.email, password: info.password});
     return infoRegister;
   }
 
