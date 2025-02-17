@@ -29,25 +29,28 @@ class UserRepository {
         if (bcrypt.compareSync(info.password, user.password)) {
           const accessToken = generateAccessToken(user.email);
           const refreshToken = jwt.sign({email: user.email}, process.env.JWT_SECRET, { expiresIn: '1d' });
-          return { login: true, accessToken, refreshToken };
+          return { success: true, accessToken, refreshToken };
         } else {
-          return { login: false, message: 'Invalid password' };
+          return { success: false, message: 'Invalid password' };
         }
       } else {
-        return { login: false, message: 'Invalid email' };
+        return { success: false, message: 'Invalid email' };
       }
-    } catch (error) {
-      return { login: false, message: error };
-    }
-  }
-
-  async generateToken(info) {
-    try {
     } catch (error) {
       return { success: false, message: error };
     }
   }
 
+  async generateToken(cookies) {
+    const { refreshToken } = cookies;
+    try {
+        const user = jwt.verify(refreshToken, process.env.JWT_SECRET);
+        const accessToken = generateAccessToken(user.email);
+        return { success: true, message: "Token refreshed successfully", accessToken };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+  }
 }
 
 export default UserRepository;

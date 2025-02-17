@@ -7,18 +7,15 @@ class UserService {
   }
 
   async register(info) {
-    let infoRegister = await this.userRepository.register({name: info.name, lastname: info.lastname, email: info.email, password: info.password});
-    return infoRegister;
+    return await this.userRepository.register({ name: info.name, lastname: info.lastname, email: info.email, password: info.password });
   }
 
   async login(info) {
-    let infoLogin = await this.userRepository.login({email: info.email, password: info.password});
-    return infoLogin;
+    return await this.userRepository.login({ email: info.email, password: info.password });
   }
 
-  async generateToken(info, res) {
-    let infoToken = await this.userRepository.generateToken({email: info.email}, res);
-    return infoToken;
+  async generateToken(info) {
+    return await this.userRepository.generateToken(info);
   }
 
 }

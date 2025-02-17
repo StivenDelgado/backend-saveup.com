@@ -31,8 +31,13 @@ class UserController {
     }
 
     generateToken = async (req, res) => {
+        const response = await this.userService.generateToken(req.cookies);
+        res.cookie('accessToken', response.accessToken, {
+            httpOnly: true,
+          secure: true,
+          });
         return res.status(200).json({ 
-            data: await this.userService.generateToken(req.body, req.header) 
+            data: { message: response.message, success: response.success }
         });
     }
 }
