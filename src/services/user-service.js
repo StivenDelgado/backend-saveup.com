@@ -16,6 +16,11 @@ class UserService {
     return infoLogin;
   }
 
+  async generateToken(info, res) {
+    let infoToken = await this.userRepository.generateToken({email: info.email}, res);
+    return infoToken;
+  }
+
 }
 
 export default UserService;

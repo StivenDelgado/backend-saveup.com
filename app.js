@@ -12,10 +12,6 @@ const app = express()
   .use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use('/user', user);
-app.use('/', (req, res) => {
-  res.status(200).json({ message: 'Hola!' });
-});
-
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
