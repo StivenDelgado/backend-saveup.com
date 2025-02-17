@@ -13,14 +13,31 @@ class UserController {
     }
     
     login = async (req, res) => {
-        return res.status(200).json({ 
-            data: await this.userService.login(req.body) 
-        });
+        const { email, password } = req.body;
+        const response = await this.userService.login({ email, password });
+        if (response) {
+            res.cookie('accessToken', response.accessToken, { httpOnly: true, secure: true });
+            res.cookie('refreshToken', response.refreshToken, { httpOnly: true, secure: true });
+            return res.status(200).json({ message: 'Login successful', response });
+        } else {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
     }
 
     profile = async (req, res) => {
         return res.status(200).json({ 
-            data: `Tu email leído en tu token es: ${req.dataToken.userEmail}`
+            data: `Tu email leído en tu token es: ${req.dataToken.email}`
+        });
+    }
+
+    generateToken = async (req, res) => {
+        const response = await this.userService.generateToken(req.cookies);
+        res.cookie('accessToken', response.accessToken, {
+            httpOnly: true,
+          secure: true,
+          });
+        return res.status(200).json({ 
+            data: { message: response.message, success: response.success }
         });
     }
 }
