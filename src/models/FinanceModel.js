@@ -15,7 +15,7 @@ export const Finance = sequelize.define('finance',{
         },
         allowNull: false,
     },
-    curren_salary: {
+    current_salary: {
         type: Sequelize.NUMERIC(10,2),
     },
     last_update_date: {

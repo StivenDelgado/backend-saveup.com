@@ -22,16 +22,22 @@ class ExpenseRepository{
         }
     }
 
-    // async changeSalary(data){
-    //     try{
-    //         this.modelFinance.update({
-    //             where:{
-    //                 id_user: data.id_user
-    //             }
-    //         })
-    //         return({success: true, message:`Salario cambiado a ${data.user_}`})
-    //     }
-    // }
+    async changeSalary(data){
+        try{
+            this.modelFinance.update({
+                current_salary: data.new_salary
+            },{
+                where: {
+                    id_user: data.id_user
+                }
+            }
+        )
+            return({success: true, message:`Salario cambiado a ${data.new_salary}`})
+        }
+        catch(error){
+            return {success : false, message: error}
+        }
+    }
 
 //      EXPENSES LOGIC
     async getExpenses(data){

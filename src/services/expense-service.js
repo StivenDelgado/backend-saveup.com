@@ -9,7 +9,7 @@ class ExpenseService{
     }
 
     async changeSalary(req){
-        return await this.ExpenseService.changeSalary({id_user: req.id_user})
+        return await this.ExpenseService.changeSalary({id_user: req.id_user, new_salary: req.new_salary})
     }
 
     async getExpenses(req){
