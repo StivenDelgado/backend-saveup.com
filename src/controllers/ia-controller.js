@@ -1,4 +1,4 @@
-class ChatbotController {
+class IaController {
 
     constructor(chatbotService) {
         this.chatbotService = chatbotService;
