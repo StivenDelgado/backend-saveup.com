@@ -14,7 +14,7 @@ class GeminiClient {
 
     async geminiModel() {
         try {
-            const model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
+            const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
             return model
         } catch (error) {
             console.error("Error en Gemini:", error);

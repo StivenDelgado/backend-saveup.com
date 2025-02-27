@@ -13,7 +13,7 @@ const app = express()
   .use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use('/user', user);
-app.use('/ia', ia);
+app.use('/api/ia', ia);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

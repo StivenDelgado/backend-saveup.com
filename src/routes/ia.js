@@ -7,7 +7,7 @@ const iaService = new IaService();
 const iaController = new IaController(iaService);
 
 router.post('/send-message', iaController.sendMessage);
-router.get('/get-message', iaController.getChat);
+router.post('/promptIA', iaController.promptIA);
 
 export default router;
 
