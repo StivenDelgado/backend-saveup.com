@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import user from './src/routes/user.js';
 import ia from './src/routes/ia.js';
+import expense from './src/routes/expense.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,6 +15,7 @@ const app = express()
 
 app.use('/user', user);
 app.use('/api/ia', ia);
+app.use('/expense', expense);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
