@@ -7,20 +7,23 @@ class UserController {
     }
 
     register = async (req, res) => {
-        return res.status(200).json({ 
-            data: await this.userService.register(req.body) 
-        });
+        const response =  await this.userService.register(req.body);
+        if (response.success) {
+            return res.status(200).json(response);
+        } else {
+            return res.status(400).json(response);
+        }
     }
     
     login = async (req, res) => {
         const { email, password } = req.body;
         const response = await this.userService.login({ email, password });
-        if (response) {
+        if (response.success) {
             res.cookie('accessToken', response.accessToken, { httpOnly: true, secure: true });
             res.cookie('refreshToken', response.refreshToken, { httpOnly: true, secure: true });
-            return res.status(200).json({ message: 'Login successful', response });
+            return res.status(200).json(response);
         } else {
-            return res.status(401).json({ message: 'Invalid credentials' });
+            return res.status(401).json(response);
         }
     }
 
