@@ -13,5 +13,6 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/profile', verifyToken, userController.profile);
 router.get('/generate-token', userController.generateToken);
-
+router.post('/change-password', userController.changePassword);
+router.post('/recover-password', userController.recoverPassword );
 export default router;

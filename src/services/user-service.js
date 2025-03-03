@@ -1,4 +1,4 @@
-
+import { sendEmail} from '../utils/email.js';
 
 class UserService {
 
@@ -18,6 +18,27 @@ class UserService {
     return await this.userRepository.generateToken(info);
   }
 
+  async changePassword(info) {
+    const user = await this.userRepository.findById(info.id_user);
+    if (!user) {
+      return { success: false, message: "No se encontró el usuario" };
+    }
+    const response = await this.userRepository.updatePassword(user, info.password);
+    
+    if (response.length > 0) {
+      return { success: true, message: "Contraseña actualizada correctamente" };
+    }
+  }
+
+  async recoverPassword(info) {
+    const user = await this.userRepository.findByEmail(info.email);
+    if (!user) {
+      return { success: false, message: "No se encontró el usuario" };
+    }
+    await sendEmail("grstiven1004@gmail.com", "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
+    return { success: true, message: {url: `http://localhost:5173/newpassword?id=${user.id_user}`} };
+    
+  }
 }
 
 export default UserService;
