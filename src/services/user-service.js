@@ -1,4 +1,10 @@
 import { sendEmail} from '../utils/email.js';
+import { generateAccessToken } from '../utils/token.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 class UserService {
 
@@ -7,15 +13,51 @@ class UserService {
   }
 
   async register(info) {
-    return await this.userRepository.register({ name: info.name, lastname: info.lastname, email: info.email, password: info.password });
+    try {
+      info.password = await bcrypt.hash(info.password, 10);
+      const user = await this.userRepository.create(info);
+      return { success: true, user };
+    } catch (error) {
+      return { success: false, message: error.errors[0].message };
+    }
   }
 
   async login(info) {
-    return await this.userRepository.login({ email: info.email, password: info.password });
+    try {
+      let user = await this.userRepository.findByEmail(info.email);
+      
+      if (user) {
+        console.log(user.password);
+        
+        
+        if (bcrypt.compareSync(info.password, user.password)) {
+          console.log("hola");
+          
+          const accessToken = generateAccessToken(user.email);
+          console.log(accessToken);
+          
+          const refreshToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
+          return { success: true, accessToken, refreshToken };
+        } else {
+          return { success: false, message: 'Invalid password' };
+        }
+      } else {
+        return { success: false, message: 'Invalid email' };
+      }
+    } catch (error) {
+      return { success: false, message: error };
+    }
   }
 
   async generateToken(info) {
-    return await this.userRepository.generateToken(info);
+    const { refreshToken } = info;
+    try {
+      const user = jwt.verify(refreshToken, process.env.JWT_SECRET);
+      const accessToken = generateAccessToken(user.email);
+      return { success: true, message: "Token refreshed successfully", accessToken };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
   }
 
   async changePassword(info) {
@@ -23,6 +65,7 @@ class UserService {
     if (!user) {
       return { success: false, message: "No se encontró el usuario" };
     }
+    info.password = await bcrypt.hash(info.password, 10);
     const response = await this.userRepository.updatePassword(user, info.password);
     
     if (response.length > 0) {
@@ -35,7 +78,7 @@ class UserService {
     if (!user) {
       return { success: false, message: "No se encontró el usuario" };
     }
-    await sendEmail("grstiven1004@gmail.com", "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
+    await sendEmail(user.email, "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
     return { success: true, message: {url: `http://localhost:5173/newpassword?id=${user.id_user}`} };
     
   }
