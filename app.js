@@ -6,6 +6,7 @@ import ia from './src/routes/ia.js';
 import expense from './src/routes/expense.js';
 import income from './src/routes/income.js';
 import finance from './src/routes/finance.js';
+import goal from './src/routes/goals.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use('/api/ia', ia);
 app.use('/expense', expense);
 app.use('/income', income);
 app.use('/finance', finance);
+app.use('/goals', goal)
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
