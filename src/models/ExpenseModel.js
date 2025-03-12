@@ -3,7 +3,7 @@ import { sequelize } from "../database/db.js";
 
 export const Expense = sequelize.define('expense',{
     id_expense: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, 
         primaryKey: true,
         autoIncrement: true,
     },
