@@ -20,7 +20,6 @@ class UserRepository {
     return await this.model.update({ password: password }, { where: { id_user: user.id_user } });
   }
 
-
 }
 
 

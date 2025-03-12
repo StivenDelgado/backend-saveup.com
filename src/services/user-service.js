@@ -27,15 +27,8 @@ class UserService {
       let user = await this.userRepository.findByEmail(info.email);
       
       if (user) {
-        console.log(user.password);
-        
-        
         if (bcrypt.compareSync(info.password, user.password)) {
-          console.log("hola");
-          
-          const accessToken = generateAccessToken(user.email);
-          console.log(accessToken);
-          
+          const accessToken = generateAccessToken(user.email);          
           const refreshToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
           return { success: true, accessToken, refreshToken };
         } else {
@@ -78,7 +71,7 @@ class UserService {
     if (!user) {
       return { success: false, message: "No se encontró el usuario" };
     }
-    await sendEmail(user.email, "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
+    await sendEmail(info.email, "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
     return { success: true, message: {url: `http://localhost:5173/newpassword?id=${user.id_user}`} };
     
   }
