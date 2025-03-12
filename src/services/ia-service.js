@@ -1,3 +1,4 @@
+import { config } from "../config/config.js";
 import GeminiClient from "../config/ia.js"
 
 class IAService {
@@ -7,16 +8,7 @@ class IAService {
         try {
             const model = await GeminiClient.geminiModel();
             const chat = model.startChat({
-                history: [
-                  {
-                    role: "user",
-                    parts: [{ text: "Hello, I have 2 dogs in my house." }],
-                  },
-                  {
-                    role: "model",
-                    parts: [{ text: "Great to meet you. What would you like to know?" }],
-                  },
-                ],
+                history: info.history || config.chatHistory,
                 generationConfig: {
                   maxOutputTokens: 100,
                 },

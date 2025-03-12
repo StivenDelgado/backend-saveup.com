@@ -71,8 +71,9 @@ class UserService {
     if (!user) {
       return { success: false, message: "No se encontró el usuario" };
     }
-    await sendEmail(info.email, "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, `http://localhost:5173/newpassword?id=${user.id_user}`);
-    return { success: true, message: {url: `http://localhost:5173/newpassword?id=${user.id_user}`} };
+    const url = `${process.env.URL_FRONTEND || "http://localhost:8080" }/change-password?id=${user.id_user}`
+    await sendEmail(info.email, "Restablecer contraseña", `Hola ${user.name}, tu contraseña ha sido restablecida`, url);
+    return { success: true, message: {url} };
     
   }
 }
