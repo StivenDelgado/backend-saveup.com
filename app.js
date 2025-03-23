@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';  // Add this import
 import user from './src/routes/user.js';
 import ia from './src/routes/ia.js';
 import expense from './src/routes/expense.js';
@@ -14,6 +15,11 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 const app = express()
+  .use(cors({
+    origin: '*',  // Allows all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }))
   .use(bodyParser.json())
   .use(cookieParser(process.env.COOKIE_SECRET));
 

@@ -13,6 +13,8 @@ class UserService {
   }
 
   async register(info) {
+    console.log(info);
+    
     try {
       info.password = await bcrypt.hash(info.password, 10);
       const user = await this.userRepository.create(info);
