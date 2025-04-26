@@ -1,13 +1,12 @@
 {
-  "name": "autojudge",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "judge.js",
-  "scripts": {
-    "test": "echo \"No tests defined\"",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
+    "name": "backend_email",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+      "start": "nodemon index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
   "author": "",
   "license": "ISC",
   "description": "",
