@@ -5,8 +5,8 @@
   "main": "judge.js",
   "scripts": {
     "test": "echo \"No tests defined\"",
-    "start": "nodemon app.js",
-    "build": "node build"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
