@@ -30,8 +30,8 @@ class UserService {
       
       if (user) {
         if (bcrypt.compareSync(info.password, user.password)) {
-          const accessToken = generateAccessToken(user.email);          
-          const refreshToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
+          const accessToken = generateAccessToken(user.email, user.id_user);          
+          const refreshToken = jwt.sign({ email: user.email, id: user.id_user }, process.env.JWT_SECRET, { expiresIn: '1d' });
           return { success: true, accessToken, refreshToken };
         } else {
           return { success: false, message: 'Invalid password' };

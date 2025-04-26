@@ -14,7 +14,7 @@ class FinanceController {
     }
 
     getFinances = async (req, res) => {
-        const response = await this.financeService.getFinances(req.body)
+        const response = await this.financeService.getFinances(req.params)
         if (response.success) {
             return res.status(200).json(response);
         } else {

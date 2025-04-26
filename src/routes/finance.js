@@ -20,8 +20,7 @@ const financeRepository = new FinanceRepository
 const financeService =  new FinanceService(financeRepository, serviceIncome, serviceExpense)
 const financeController = new FinanceController(financeService)
 
-router.get('/getFinances', financeController.getFinances)
+router.get('/getFinances/:id_user', financeController.getFinances)
 router.post('/changeSalary', financeController.updateSalary)
-
 
 export default router;

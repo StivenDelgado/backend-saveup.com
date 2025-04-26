@@ -17,7 +17,11 @@ class FinanceRepository{
     }
 
     async getFinance(data){
-        return await this.modelFinance.findByPk(data.id_finance)
+        return await this.modelFinance.findOne({
+            where: {
+                id_user: data.id_user
+            }
+        })
     }
 }
 

@@ -12,11 +12,11 @@ class goalRepository{
     async deleteGoal(data){
         return await this.modelGoal.destroy({
             where: {
-                id_goal: data.id_goal
+                id_goal: parseInt(data.id_goal)
             }
         })
     }
-
+    
     async getGoals(data){
         return await this.modelGoal.findAll({
             where: {
@@ -28,18 +28,18 @@ class goalRepository{
     async getGoal(data){
         return await this.modelGoal.findOne({
             where:{
-                id_user: data.id_user,
                 id_goal: data.id_goal
             }
         })
     }
 
     async updateAmount(data){
+        console.log(data)
         return await this.modelGoal.update({
             current_amount: data.current_amount
         }, {
             where: {
-                id_user: data.id_user
+                id_goal: data.id_goal
             }
         })
     }

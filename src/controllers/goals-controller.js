@@ -14,7 +14,7 @@ class GoalsController{
     }
 
     deleteGoal = async (req, res) => {
-        const response = await this.goalsService.deleteGoal(req.body)
+        const response = await this.goalsService.deleteGoal(req.params)
         if(response.success){
             return res.status(200).json(response)
         }else{
@@ -24,7 +24,6 @@ class GoalsController{
 
     getGoals = async (req, res) => {
         const response = await this.goalsService.getGoals(req.params)
-        console.log(response)
         if(response.success){
             return res.status(200).json(response)
         }else{

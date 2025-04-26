@@ -32,6 +32,7 @@ class GoalsService{
     }
 
     async updateAmount(data){
+        console.log(data)
         try{
             const goal = await this.goalRepository.getGoal(data)
             goal.current_amount = parseFloat(goal.current_amount) + parseFloat(data.new_amount)

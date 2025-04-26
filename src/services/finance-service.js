@@ -14,8 +14,8 @@ class FinanceService {
         
         try {
             const finance = await this.financeRepository.getFinance(data)
-            const incomes = await this.serviceIncome.getIncomes(data)
-            const expenses = await this.serviceExpense.getExpenses(data)
+            const incomes = await this.serviceIncome.getIncomes(finance)
+            const expenses = await this.serviceExpense.getExpenses(finance)
 
             const objetoFinance = {
                 ...finance.dataValues,

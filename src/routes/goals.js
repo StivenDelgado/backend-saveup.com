@@ -9,8 +9,7 @@ const goalsService = new GoalsService(goalsRepository)
 const goalController = new GoalsController(goalsService)
 
 router.post('/createGoal', goalController.createGoal)
-router.delete('/deleteGoal', goalController.deleteGoal)
+router.delete('/deleteGoal/:id_goal', goalController.deleteGoal)
 router.put('/updateAmount', goalController.updateAmount)
 router.get('/getGoals/:idUser', goalController.getGoals)
-
 export default router 
