@@ -1,39 +1,26 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { User } from '../models/UserModel.js';
-import bcrypt from 'bcrypt';
-dotenv.config();
-
 
 class UserRepository {
   constructor() {
-    this.model = User; 
+    this.model = User;
   }
 
-  async register(info) {
-    try {
-      info.password = await bcrypt.hash(info.password, 10);
-      const user = await this.model.create(info);
-      return { success: true, user };
-    } catch (error) {
-      if (error.name === 'SequelizeUniqueConstraintError') {
-        return { success: false, message: error.errors[0].message };
-      }
-      if (error.name === 'SequelizeValidationError') {
-        return { success: false, message: error.errors[0].message};
-      }
-    }
+  async create(info) {
+    return await this.model.create(info);
+  }
+  async findByEmail(email) {
+    return await this.model.findOne({ where: { email } });
   }
 
-  async login(info) {
-    const token = jwt.sign(
-      { userEmail: info.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-    return { login: true, token }
+  async findById(id) {
+    return await this.model.findByPk(id);
+  }
+
+  async updatePassword(user, password) {
+    return await this.model.update({ password: password }, { where: { id_user: user.id_user } });
   }
 
 }
+
 
 export default UserRepository;
