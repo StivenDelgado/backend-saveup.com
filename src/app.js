@@ -2,12 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';  // Add this import
-import user from './src/routes/user.js';
-import ia from './src/routes/ia.js';
-import expense from './src/routes/expense.js';
-import income from './src/routes/income.js';
-import finance from './src/routes/finance.js';
-import goal from './src/routes/goals.js';
+import user from './routes/user.js';
+import ia from './routes/ia.js';
+import expense from './routes/expense.js';
+import income from './routes/income.js';
+import finance from './routes/finance.js';
+import goal from './routes/goals.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
