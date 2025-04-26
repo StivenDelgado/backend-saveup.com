@@ -1,12 +1,11 @@
 {
-  "name": "autojudge",
+  "name": "backend",
   "version": "1.0.0",
   "type": "module",
-  "main": "judge.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"No tests defined\"",
-    "start": "nodemon app.js",
-    "build": "node build"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
